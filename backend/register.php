@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contact_no = filter_input(INPUT_POST, "contact", FILTER_SANITIZE_SPECIAL_CHARS); 
     $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
     $confirmPassword = filter_input(INPUT_POST, "confirmPassword", FILTER_SANITIZE_SPECIAL_CHARS);
-    $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_SPECIAL_CHARS);
+    $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
 
     // Check for empty required fields
     if (empty($fullname) || empty($contact_no) || empty($address) || empty($password) || empty($confirmPassword)) {
@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check if the query was successful
     if ($result) {
-        echo "<script>alert('Registration successful!'); window.location.href='login.php';</script>";
+        echo "<script>alert('Registration successful!');</script>";
     } else {
         echo "<script>alert('Registration failed! Email might already be registered.'); window.history.back();</script>";
     }
