@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Work Request</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Work Request Details</h2>
+        <p><strong>Farmer Name:</strong> <span id="farmerName"></span></p>
+        <p><strong>Work Details:</strong> <span id="workDetails"></span></p>
+        <p><strong>Work Hours Per Day:</strong> <span id="workHours"></span></p>
+        <p><strong>Address:</strong> <span id="address"></span></p>
+        <p><strong>Payment Per Day:</strong> <span id="payment"></span></p>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        document.getElementById("farmerName").textContent = urlParams.get("farmerName");
+        document.getElementById("workDetails").textContent = urlParams.get("workDetails");
+        document.getElementById("workHours").textContent = urlParams.get("workHours");
+        document.getElementById("address").textContent = urlParams.get("address");
+        document.getElementById("payment").textContent = urlParams.get("payment");
+    </script>
+</body>
+</html>

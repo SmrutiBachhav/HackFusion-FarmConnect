@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Work Request</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Send Farm Work Request</h2>
+        <form id="requestForm">
+            <input type="text" id="farmerName" placeholder="Farmer Name" required>
+            <textarea id="workDetails" placeholder="Work Details" required></textarea>
+            <input type="number" id="workHours" placeholder="Work Hours Per Day" required>
+            <input type="text" id="address" placeholder="Address" required>
+            <input type="number" id="payment" placeholder="Payment Per Day" required>
+            <button type="submit">Send Request</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
