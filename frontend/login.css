@@ -1,0 +1,225 @@
+/* Login Page Specific Styles */
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(46, 204, 113, 0.9), rgba(39, 174, 96, 0.9)),
+                url('https://images.unsplash.com/photo-1559028006-448665bd7c7f') center/cover fixed;
+    animation: gradientShift 15s ease infinite alternate;
+    z-index: -1;
+}
+
+.login-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.login-header {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.back-home {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.back-home:hover {
+    transform: translateX(-5px);
+    color: var(--orange);
+}
+
+.login-form {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 500px;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: formEntrance 0.8s 0.3s ease-out forwards;
+}
+
+@keyframes formEntrance {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.login-form h2 {
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+}
+
+.subtext {
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 0.8rem;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.input-group:hover {
+    border-color: var(--primary-green);
+}
+
+.input-group:focus-within {
+    border-color: var(--orange);
+    box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.2);
+}
+
+.input-group i {
+    color: #666;
+    margin: 0 1rem;
+}
+
+.input-group input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    outline: none;
+}
+
+.toggle-password {
+    cursor: pointer;
+    margin-left: auto;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+    color: var(--orange);
+}
+
+.login-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(243, 156, 18, 0.3);
+}
+
+.login-options {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.forgot-password {
+    color: var(--text-dark);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: var(--orange);
+}
+
+.social-login {
+    margin: 2rem 0;
+}
+
+.social-login p {
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.social-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.social-btn.google { background: #dd4b39; }
+.social-btn.facebook { background: #3b5998; }
+.social-btn.twitter { background: #1da1f2; }
+
+.social-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.signup-link {
+    color: #666;
+    margin-top: 1.5rem;
+}
+
+.signup-link a {
+    color: var(--orange);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.signup-link a:hover {
+    color: var(--dark-orange);
+}
+
+.login-footer {
+    text-align: center;
+    padding: 2rem;
+    color: white;
+}
