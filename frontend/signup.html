@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Connect - Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-1.2.1') center/cover;
+            padding: 1rem;
+        }
+
+        .container {
+            position: relative;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 600px;
+            margin: 2rem 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c5f2d;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #2c5f2d;
+            outline: none;
+            box-shadow: 0 0 5px rgba(44, 95, 45, 0.5);
+        }
+
+        .user-type {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .user-type label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            background: #2c5f2d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #204d22;
+        }
+
+        .password-strength {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .address-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .back-to-home {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #2c5f2d;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .back-to-home:hover {
+            text-decoration: underline;
+        }
+
+        .login-prompt {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #666;
+        }
+
+        .login-link {
+            color: #2c5f2d;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .address-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-to-home">
+            <span>&larr;</span> Home
+        </a>
+
+        <h1>Join Farm Connect</h1>
+        <form id="signupForm">
+            <!-- Role Selection -->
+            <div class="user-type">
+                <label>
+                    <input type="radio" name="userType" value="farmer" required>
+                    Farmer
+                </label>
+                <label>
+                    <input type="radio" name="userType" value="worker">
+                    Worker
+                </label>
+            </div>
+
+            <!-- Full Name -->
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" required>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" pattern="[0-9]{10}" required>
+            </div>
+
+            <!-- State Selection -->
+            <div class="form-group">
+                <label>State</label>
+                <select required>
+                    <option value="">Select State</option>
+                    <option>Maharashtra</option>
+                    <option>Gujarat</option>
+                    <option>Karnataka</option>
+                </select>
+            </div>
+
+            <!-- District & Taluka -->
+            <div class="address-group">
+                <div class="form-group">
+                    <label>District</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Taluka</label>
+                    <input type="text" required>
+                </div>
+            </div>
+
+            <!-- Full Address -->
+            <div class="form-group">
+                <label>Full Address</label>
+                <textarea rows="3" required></textarea>
+            </div>
+
+            <!-- Email (Optional) -->
+            <div class="form-group">
+                <label>Email Address (Optional)</label>
+                <input type="email">
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" required>
+                <div class="password-strength" id="passwordStrength"></div>
+            </div>
+
+            <button type="submit">Create Account</button>
+        </form>
+
+        <div class="login-prompt">
+            Already registered? 
+            <a href="login.html" class="login-link">Login here</a>
+        </div>
+    </div>
+
+    <script>
+        const passwordInput = document.getElementById('password');
+        const passwordStrength = document.getElementById('passwordStrength');
+
+        passwordInput.addEventListener('input', function() {
+            const password = this.value;
+            const strength = checkPasswordStrength(password);
+            passwordStrength.textContent = strength.message;
+            passwordStrength.style.color = strength.color;
+        });
+
+        function checkPasswordStrength(password) {
+            const strongRegex = /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]{8,}$/;
+            
+            if (strongRegex.test(password)) {
+                return { message: 'Strong password', color: '#2c5f2d' };
+            } else if (password.length >= 8) {
+                return { message: 'Medium - Add uppercase, number, or special character', color: '#ff9800' };
+            } else {
+                return { message: 'Weak - Should be at least 8 characters', color: '#f44336' };
+            }
+        }
+    </script>
+</body>
+</html>
