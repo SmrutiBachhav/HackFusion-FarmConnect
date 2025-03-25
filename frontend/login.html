@@ -3,28 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farm Worker Login</title>
-    <link rel="stylesheet" href="logreg_styles.css">
+    <title>FarmConnect 🌾 - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="login.css">
 </head>
 <body>
-    <form id = "loginForm" action="../backend/login.php"  method="post">
-        <div class="container">
-            <h2>Login</h2>
-            <label for="role" >Select Role:</label>
-                <select id="role" name="role">
-                    <option value="farmer">Farmer</option>
-                    <option value="worker">Worker</option>
-                </select>
-            <input type="text" id="username" name="login_input" placeholder="Enter username, contact number or email">
-            <input type="password" id="password" name="password"placeholder="Password">
-            <button onclick="login()">Login</button>
-            <!-- <button>Login</button> -->
-    
-            <p>Don't have an account? <a href="register.html" id="signup">Sign up</a></p>
-        </div>
-    </form>
-    
+    <div class="login-container">
+        <div class="login-background"></div>
+        
+        <div class="login-content">
+            <div class="login-header">
+                <a href="index.html" class="back-home">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+                <div class="logo">
+                    <i class="fas fa-tractor"></i>
+                    <span>FarmConnect</span>
+                </div>
+            </div>
 
-    <script src="logreg_script.js"></script>
+            <form class="login-form animate-pop-in">
+                <h2>Welcome Back!</h2>
+                <p class="subtext">Please login to continue</p>
+                
+                <!-- User Type Selection -->
+                <div class="form-group">
+                    <label for="user-type">My Role</label>
+                    <select id="user-type" required>
+                        <option value="farmer">Farmer</option>
+                        <option value="worker">Worker</option>
+                    </select>
+                </div>
+
+                <!-- Combined Username/Email/Phone_Number Input -->
+                <div class="form-group">
+                    <label for="username">Username / Email / Phone Number</label>
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" required placeholder="Enter username / email / phone number">
+                    </div>
+                </div>
+
+                <!-- Password Input -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" required placeholder="••••••••">
+                        <i class="fas fa-eye toggle-password"></i>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn login-btn">Login <i class="fas fa-arrow-right"></i></button>
+
+                <div class="login-options">
+                    <a href="#forgot-password" class="forgot-password">Forgot Password?</a>
+                    <p class="signup-link">Don't have an account? <a href="#signup">Sign Up</a></p>
+                </div>
+            </form>
+        </div>
+
+        <footer class="login-footer">
+            <p class="copyright">© 2023 FarmConnect. Cultivating Connections.</p>
+        </footer>
+    </div>
+
+    <script src="login.js"></script>
 </body>
 </html>
