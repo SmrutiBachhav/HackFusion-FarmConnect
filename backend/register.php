@@ -14,29 +14,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $address = filter_input(INPUT_POST, "addr", FILTER_SANITIZE_SPECIAL_CHARS);
     $contact_no = filter_input(INPUT_POST, "contact", FILTER_SANITIZE_SPECIAL_CHARS); 
     $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
-    $confirmPassword = filter_input(INPUT_POST, "confirmPassword", FILTER_SANITIZE_SPECIAL_CHARS);
     $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
+    $state = filter_input(INPUT_POST, "state", FILTER_SANITIZE_SPECIAL_CHARS);
+    $district = filter_input(INPUT_POST, "district", FILTER_SANITIZE_SPECIAL_CHARS);
+    $taluka = filter_input(INPUT_POST, "taluka", FILTER_SANITIZE_SPECIAL_CHARS);
+
+
+    
 
     // Check for empty required fields
-    if (empty($fullname) || empty($contact_no) || empty($address) || empty($password) || empty($confirmPassword)) {
+    if (empty($role) || empty($fullname) || empty($contact_no) || empty($address) || empty($password) || empty($state) || empty($district) || empty($taluka)) {
         echo "<script>alert('Please enter all details!'); window.history.back();</script>";
         exit(); // Stop further execution if fields are empty
     }
 
     // Check if passwords match
-    if ($password !== $confirmPassword) {
-        echo "<script>alert('Passwords do not match!'); window.history.back();</script>";
-        exit(); // Stop execution if passwords don't match
-    }
+    // if ($password !== $confirmPassword) {
+    //     echo "<script>alert('Passwords do not match!'); window.history.back();</script>";
+    //     exit(); // Stop execution if passwords don't match
+    // }
 
     // Hash the password
     $hash = password_hash($password, PASSWORD_DEFAULT);
 
     // Insert into the appropriate table based on role
     if ($role == "farmer") {
-        $sql = "INSERT INTO farm_owners (name, contact_no, email, addr, password) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO farm_owners (name, contact_no, email, addr, state, district, taluka, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     } else {
-        $sql = "INSERT INTO workers (name, contact_no, email, addr, password) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO workers (name, contact_no, email, addr, state, district, taluka, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
     // Prepare the SQL statement
@@ -47,14 +52,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Bind the parameters
-    mysqli_stmt_bind_param($stmt, "sssss", $fullname, $contact_no, $email, $address, $hash);
+    mysqli_stmt_bind_param($stmt, "ssssssss", $fullname, $contact_no, $email, $address, $state, $district, $taluka, $hash);
 
     // Execute the prepared statement
     $result = mysqli_stmt_execute($stmt);
 
     // Check if the query was successful
     if ($result) {
-        echo "<script>alert('Registration successful!');</script>";
+        echo "<script>alert('Registration successful!'); window.location.href = '../frontend/login.html';</script>";
     } else {
         echo "<script>alert('Registration failed! Email might already be registered.'); window.history.back();</script>";
     }

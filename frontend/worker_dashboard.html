@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Connect - Worker Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Base styles from previous designs */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1586773860418-d37222d8fce3?ixlib=rb-1.2.1') center/cover;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Worker Dashboard Specific Styles */
+        .search-section {
+            background: rgba(255,255,255,0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+        }
+
+        .search-input {
+            padding: 1rem;
+            border: 2px solid #2c5f2d;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .search-button {
+            background: #2c5f2d;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .search-button:hover {
+            background: #204d22;
+        }
+
+        .job-listings {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .job-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .job-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #2c5f2d;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .job-details-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .job-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        .tag {
+            background: #e8f5e9;
+            color: #2c5f2d;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <a href="index.html" class="back-to-home">
+            <span>&larr;</span> Home
+        </a>
+
+        <div class="search-section">
+            <h1 style="margin-bottom: 1.5rem; color: #2c5f2d;">
+                <i class="fas fa-search"></i> Find Farming Opportunities
+            </h1>
+            <div class="search-form">
+                <input type="text" 
+                       class="search-input" 
+                       placeholder="Enter your location or postcode">
+                <select class="search-input">
+                    <option value="">All Categories</option>
+                    <option>Harvesting</option>
+                    <option>Planting</option>
+                    <option>Livestock Care</option>
+                    <option>Irrigation</option>
+                </select>
+                <button class="search-button">
+                    <i class="fas fa-search"></i> Search Jobs
+                </button>
+            </div>
+        </div>
+
+        <div class="job-listings" id="jobListings">
+            <!-- Job cards will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <!-- Job Details Modal -->
+    <div class="job-details-modal" id="jobModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 id="jobTitle"></h2>
+            <div class="job-tags" id="jobTags"></div>
+            <p><i class="fas fa-map-marker-alt"></i> <span id="jobLocation"></span></p>
+            <p><i class="fas fa-clock"></i> <span id="jobDuration"></span></p>
+            <p><i class="fas fa-rupee-sign"></i> <span id="jobPayment"></span></p>
+            <div id="jobDescription" style="margin: 1rem 0;"></div>
+            <h4>Requirements:</h4>
+            <ul id="jobRequirements" style="margin-bottom: 1rem;"></ul>
+            <button class="search-button" style="width: 100%;">
+                <i class="fas fa-phone"></i> Contact Farmer
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Sample job data
+        const jobs = [
+            {
+                title: "Rice Harvesting Help Needed",
+                location: "Nashik, Maharashtra",
+                distance: "5km away",
+                duration: "3 days (Immediate start)",
+                payment: "₹800/day",
+                description: "Looking for experienced farm hands to help with rice harvesting in 10-acre field. All equipment will be provided.",
+                requirements: ["Physical stamina", "Harvesting experience", "Morning shifts"],
+                type: "Harvesting"
+            },
+            {
+                title: "Dairy Farm Assistant",
+                location: "Pune, Maharashtra",
+                distance: "8km away",
+                duration: "15 days (Flexible schedule)",
+                payment: "₹12,000 monthly",
+                description: "Need assistance with daily dairy farm operations including milking, feeding, and cleaning.",
+                requirements: ["Animal handling experience", "Early morning availability", "Basic milking skills"],
+                type: "Livestock Care"
+            }
+        ];
+
+        // Render job listings
+        const jobListings = document.getElementById('jobListings');
+        
+        jobs.forEach(job => {
+            const card = document.createElement('div');
+            card.className = 'job-card';
+            card.innerHTML = `
+                <span class="job-badge">${job.type}</span>
+                <h3>${job.title}</h3>
+                <p><i class="fas fa-map-marker-alt"></i> ${job.location}</p>
+                <p><i class="fas fa-walking"></i> ${job.distance}</p>
+                <p><i class="fas fa-clock"></i> ${job.duration}</p>
+                <p><i class="fas fa-rupee-sign"></i> ${job.payment}</p>
+                <div class="job-tags">
+                    ${job.requirements.map(req => <span class="tag">${req}</span>).join('')}
+                </div>
+                <button class="search-button" style="margin-top: 1rem;" onclick="showJobDetails(${jobs.indexOf(job)})">
+                    View Details
+                </button>
+            `;
+            jobListings.appendChild(card);
+        });
+
+        // Modal functions
+        function showJobDetails(jobIndex) {
+            const job = jobs[jobIndex];
+            document.getElementById('jobTitle').textContent = job.title;
+            document.getElementById('jobLocation').textContent = job.location;
+            document.getElementById('jobDuration').textContent = job.duration;
+            document.getElementById('jobPayment').textContent = job.payment;
+            document.getElementById('jobDescription').textContent = job.description;
+            
+            const requirementsList = document.getElementById('jobRequirements');
+            requirementsList.innerHTML = job.requirements
+                .map(req => <li>${req}</li>)
+                .join('');
+            
+            document.getElementById('jobModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('jobModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('job-details-modal')) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
